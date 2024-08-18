@@ -7,7 +7,6 @@ window.onload = () => {
     savedItems.forEach(row => {
         displayTask(false, row);
     });
-    console.log(savedItems);
 }
 
 // Создаем кнопку удаления таска, передавая элемент в котором мы хотим создать эту кнопку
@@ -20,12 +19,10 @@ const addRemoveBtn = (li) => {
         const currentTasks = JSON.parse(localStorage.getItem('tasks'));
         const parent = li.parentNode;
         const index = Array.prototype.indexOf.call(parent.children, li);
-        console.log(index);
 
         currentTasks.splice(index, 1);
         localStorage.setItem('tasks', JSON.stringify(currentTasks));
         parent.removeChild(li);
-        console.log(currentTasks);
     })
 
     li.appendChild(remove);
@@ -54,24 +51,29 @@ const displayTask = (isNew, arr) => {
     task.classList.add("task");
 
     // Onclick выполнения таска
-    task.addEventListener("dblclick", (el) => {
-        const elementParent = el.target.parentNode;
-        let index = Array.prototype.indexOf.call(elementParent.children, el.target);
-
-        if (task.classList.contains("complete")) {
-            task.classList.remove("complete");
-            task.classList.add("active");
-            currentTasks[index][0] = "active";
-            localStorage.setItem('tasks', JSON.stringify(currentTasks));
-        }
-        else {
-            task.classList.remove("active");
-            task.classList.add("complete");
-            currentTasks[index][0] = "complete";
-            localStorage.setItem('tasks', JSON.stringify(currentTasks));
-        }
-    })
+    task.addEventListener("dblclick", (el) => completeTask(el));
 
     tasksList.appendChild(task);
     addRemoveBtn(task);
+}
+
+completeTask = (el) => {
+    const elementParent = el.target.parentNode;
+    const index = Array.prototype.indexOf.call(elementParent.children, el.target);
+    const currentTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const task = el.target;
+
+    if (task.classList.contains("complete")) {
+        task.classList.remove("complete");
+        task.classList.add("active");
+        currentTasks[index][0] = "active";
+        localStorage.setItem('tasks', JSON.stringify(currentTasks));
+    }
+    else {
+        task.classList.remove("active");
+        task.classList.add("complete");
+        currentTasks[index][0] = "complete";
+        localStorage.setItem('tasks', JSON.stringify(currentTasks));
+        console.log(currentTasks);
+    }
 }
