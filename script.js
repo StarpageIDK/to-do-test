@@ -7,6 +7,7 @@ window.onload = () => {
     savedItems.forEach(row => {
         displayTask(false, row);
     });
+    console.log(savedItems);
 }
 
 // Создаем кнопку удаления таска, передавая элемент в котором мы хотим создать эту кнопку
@@ -19,10 +20,12 @@ const addRemoveBtn = (li) => {
         const currentTasks = JSON.parse(localStorage.getItem('tasks'));
         const parent = li.parentNode;
         const index = Array.prototype.indexOf.call(parent.children, li);
+        console.log(index);
 
         currentTasks.splice(index, 1);
         localStorage.setItem('tasks', JSON.stringify(currentTasks));
         parent.removeChild(li);
+        console.log(currentTasks);
     })
 
     li.appendChild(remove);
@@ -32,7 +35,6 @@ const addRemoveBtn = (li) => {
 const displayTask = (isNew, arr) => {
     const task = document.createElement('li');
     const currentTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
     if (isNew) {
         const taskInputText = taskInput.value.trim();
         // Создаем новый таск
@@ -50,8 +52,9 @@ const displayTask = (isNew, arr) => {
         task.classList.add(arr[0]);
     }
     task.classList.add("task");
-    // Функция выполнения таска
-    task.addEventListener("click", (el) => {
+
+    // Onclick выполнения таска
+    task.addEventListener("dblclick", (el) => {
         const elementParent = el.target.parentNode;
         let index = Array.prototype.indexOf.call(elementParent.children, el.target);
 
