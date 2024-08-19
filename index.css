@@ -57,9 +57,9 @@ body {
     color: white;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
     margin-left: 10px;
     transition: background-color 0.3s ease;
+    font-size: 16px;
 }
 
 .new-task button:hover {
@@ -86,8 +86,7 @@ body {
     justify-content: space-between;
     align-items: center;
     border: 1px solid #d1d5db;
-    cursor: pointer;
-    transition: background-color 0.3s ease, text-decoration 0.3s ease;
+    transition: background-color 0.7s ease, text-decoration 0.7s ease;
     word-wrap: break-word;
     white-space: pre-wrap;
     overflow-wrap: break-word;
@@ -100,17 +99,16 @@ body {
 
 .task.complete {
     background-color: #d1fae5;
-    color: #065f46;
+    /* color: #065f46; */
+}
+
+.task.complete:hover {
+    background-color: rgb(239, 255, 247)
 }
 
 .task .remove {
-    color: #ef4444;
     font-size: 16px;
     cursor: pointer;
     margin-left: 10px;
     transition: color 0.3s ease;
-}
-
-.task .remove:hover {
-    color: #b91c1c;
 }

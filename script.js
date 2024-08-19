@@ -51,13 +51,14 @@ const displayTask = (isNew, arr) => {
     task.classList.add("task");
 
     // Onclick выполнения таска
-    task.addEventListener("dblclick", (el) => completeTask(el));
+    task.addEventListener("click", (el) => completeTask(el));
 
     tasksList.appendChild(task);
     addRemoveBtn(task);
 }
 
 completeTask = (el) => {
+    //Получаем родителя элемента для получения инедкса, 
     const elementParent = el.target.parentNode;
     const index = Array.prototype.indexOf.call(elementParent.children, el.target);
     const currentTasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -74,6 +75,5 @@ completeTask = (el) => {
         task.classList.add("complete");
         currentTasks[index][0] = "complete";
         localStorage.setItem('tasks', JSON.stringify(currentTasks));
-        console.log(currentTasks);
     }
 }
